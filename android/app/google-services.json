@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "156829870119",
+    "firebase_url": "https://testprojekt-c6e27.firebaseio.com",
+    "project_id": "testprojekt-c6e27",
+    "storage_bucket": "testprojekt-c6e27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156829870119:android:e5e71eb464f17dece44602",
+        "android_client_info": {
+          "package_name": "de.katowi.luvutest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156829870119-kekast89p0blf4lkcpj7h0lrfkvaag2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNgdD7KZdBHc8HnN8uTfnnUuR9_l0aDOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156829870119-kekast89p0blf4lkcpj7h0lrfkvaag2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156829870119:android:4ad57a585d4bae61",
+        "android_client_info": {
+          "package_name": "katoba.de.geschenke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156829870119-kekast89p0blf4lkcpj7h0lrfkvaag2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNgdD7KZdBHc8HnN8uTfnnUuR9_l0aDOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156829870119-kekast89p0blf4lkcpj7h0lrfkvaag2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

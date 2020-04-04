@@ -1,0 +1,6 @@
+keys;en;de
+appTitle;Luvu Gift App;Luvu Geschenke App
+greeting;Hello;Hallo
+subtitle;A subtitle;Ein Untertitle
+description;Text with a variable: %1$s;Text mit einer Variable: %1$s
+littleTest;"Here is, for the example, ""a test"" with the variable %age$d";"Hier ist, zum Beispiel, ""ein Test"" mit der Variable %age$d"
