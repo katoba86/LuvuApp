@@ -169,24 +169,7 @@ class CreateGiftView extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    verticalSpaceMedium,
-                                    TextFormField(
-                                      controller: dateController,
 
-                                      readOnly: true,
-                                      decoration: InputDecoration(
-                                        hintText: 'Kein Enddatum',
-                                        suffixIcon: IconButton(
-                                            icon: Icon(Icons.clear),
-                                            onPressed: () {
-                                              dateController.text = null;
-                                              model.formDate = null;
-                                            }),
-                                      ),
-                                      onTap: () {
-                                        getDate(context, model);
-                                      },
-                                    ),
                                   ],
                                 ),
                               ),
@@ -249,13 +232,45 @@ class CreateGiftView extends StatelessWidget {
                                       "Für wen ist es?",
                                       style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
                                     ),
-                                    subtitle:        model.formContact!=null ? Text("Für ${model.formContact.displayName}"):Text("Noch nicht ausgewählt", style: TextStyle(color: Colors.grey)),
+                                    subtitle:        model.formContact!=null ? Text("Für ${model.formContact.displayName}"):Text("3 ausgewählt", style: TextStyle(color: Colors.grey)),
 
 
                                     trailing: IconButton(onPressed: (){model.formContact=null;model.notifyListeners();},icon:
-                                    Icon(Icons.clear, color:  model.formContact!=null ? Colors.grey:Colors.white, size: 24.0))),
-                              )
+                                    Icon(Icons.add, color:  model.formContact!=null ? Colors.grey:Colors.grey, size: 24.0))),
 
+                              ),
+
+
+                        Container(
+                          padding: EdgeInsets.all(7),
+                          child: Wrap(
+                            spacing: 5.0,
+                            runSpacing: 3.0,
+                            children: <Widget>[
+
+                              Chip(
+                                onDeleted: ()=>{},
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.green.shade800,
+                                  child: Text('AB'),
+                                ),
+                                label: Text('Kathi'),
+                              ),Chip(
+                                onDeleted: ()=>{},
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade800,
+                                  child: Text('AB'),
+                                ),
+                                label: Text('Alex'),
+                              ),Chip(
+                                onDeleted: ()=>{},
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade800,
+                                  child: Text('AB'),
+                                ),
+                                label: Text('Daniel'),
+                              )
+                              ])),
 
 
 

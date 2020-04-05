@@ -35,9 +35,9 @@ class _HomeViewState extends State<HomeView> {
 
     final  List<String> cardTexts = [
       'Gemerkte Geschenke',
-      'Schon zugewiesen',
-      'Meine Gruppen',
       'Nach Anlass',
+      'Listen / Gruppen',
+      'Einstellungen',
     ];
 
     final  List<AssetImage> cardImages = [
