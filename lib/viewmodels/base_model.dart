@@ -33,6 +33,14 @@ class BaseModel extends ChangeNotifier {
   }
 
 
+  bool _busy2 = false;
+  bool get busy2 => _busy2;
+
+  void setBusy2(bool value) {
+    _busy2 = value;
+    notifyListeners();
+  }
+
   void goTo(String route){
       _navigationService.navigateTo(route);
   }

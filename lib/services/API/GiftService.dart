@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:luvutest/constants/config.dart';
 import 'package:luvutest/models/gift.dart';
 import 'package:retrofit/retrofit.dart';
@@ -11,19 +14,20 @@ abstract class GiftService {
   factory GiftService(Dio dio, {String baseUrl}) = _GiftService;
 
 
-  @GET("/api/gifts/list")
+  @GET("/gift/list")
   Future<List<Gift>> getGiftList();
 
 
 
-  @POST("/api/gifts/update/{id}")
-  Future<Gift> updateGift(@Path() int id,@Body() Gift gift);
+  @POST("/gift/update/{id}")
+  Future<Gift> updateGift(@Path() int id,@Part() String gift,{@Part() File file});
 
-  @POST("/api/gifts/add")
-  Future<Gift> addGift(@Body() Gift gift);
+  @POST("/gift/add")
+  Future<Gift> addGift(@Part() Gift gift,{@Part() File file});
 
 
-  @GET("/api/gifts/remove/{id}")
+
+  @GET("/gift/remove/{id}")
   Future<void> delete(@Path() int id);
 
 }

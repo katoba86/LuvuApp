@@ -1,22 +1,34 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:luvutest/constants/config.dart';
+
 import 'package:luvutest/models/gift.dart';
 import 'package:luvutest/painter/DefaultPaint.dart';
 import 'package:luvutest/ui/shared/ui_helpers.dart';
+
 import 'package:luvutest/ui/widgets/ContactWidget.dart';
 import 'package:luvutest/ui/widgets/clouds.dart';
 import 'package:luvutest/viewmodels/create_gift_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
-class CreateGiftView extends StatelessWidget {
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final dateController = TextEditingController();
-  final Gift edittingGift;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  CreateGiftView({Key key, this.edittingGift}) : super(key: key);
+class CreateGiftView extends StatefulWidget {
+  Gift edittingGift;
 
+  CreateGiftView({Key key, this.edittingGift}){
+
+      if(this.edittingGift==null){
+        this.edittingGift=new Gift(id:null, name: null);
+      }
+    //super(key: key);
+  }
+
+  @override
+  _CreateGiftViewState createState() => _CreateGiftViewState();
+}
+
+class _CreateGiftViewState extends State<CreateGiftView> {
+  final titleController = TextEditingController();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   CreateGiftViewModel _tmpModel;
 
@@ -26,14 +38,12 @@ class CreateGiftView extends StatelessWidget {
   }
 
   void getSelectedContact(input) async{
-    print("Selection received");
-    print(input);
+
+
     this._tmpModel.formContact = input;
     this._tmpModel.notifyListeners();
     this._tmpModel=null;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +56,9 @@ class CreateGiftView extends StatelessWidget {
     return ViewModelProvider<CreateGiftViewModel>.withConsumer(
         viewModel: CreateGiftViewModel(),
         onModelReady: (model) {
-          titleController.text = edittingGift?.name ?? '';
-          descriptionController.text = edittingGift?.description ?? '';
-          dateController.text = edittingGift?.get_up_to ?? '';
-          model.setEdittingGift(edittingGift);
+
+          titleController.text = widget.edittingGift?.name ?? '';
+          model.setEdittingGift((widget.edittingGift==null)?new Gift(id: null, name: null):widget.edittingGift);
         },
         builder: (context, model, child) => Scaffold(
             key: _scaffoldKey,
@@ -108,12 +117,14 @@ class CreateGiftView extends StatelessWidget {
                 if (!model.busy) {
                   model.addGift(
                       title: titleController.text,
-                      description: descriptionController.text,
-                      date:model.formDate,
-                      contact:model.formContact);
+                  );
                 }
               },
-              child: Icon(Icons.check),
+              child: !model.busy
+                  ? Icon(Icons.check)
+                  : CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(Colors.white),
+              ),
               foregroundColor: Colors.white,
               backgroundColor: Theme.of(context).primaryColor,
             ),
@@ -156,69 +167,49 @@ class CreateGiftView extends StatelessWidget {
                                       ),
                                       autofocus: false,
                                     ),
-                                    verticalSpaceMedium,
-                                    TextFormField(
-                                      controller: descriptionController,
-                                      decoration: const InputDecoration(
-                                        hintText: 'Beschreibung',
-                                      ),
-                                      validator: (value) {
-                                        if (value.isEmpty) {
-                                          return 'Please enter some text';
-                                        }
-                                        return null;
-                                      },
-                                    ),
+
 
                                   ],
                                 ),
                               ),
 
 
-                                   Container(
-                                     height:60,
-                                     child: ListTile(
-                                       onTap: (){print("hello from list Tile");},
-                                       isThreeLine: false,
-                                        contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                                        leading: Container(
-                                          padding: EdgeInsets.only(top:4),
-
-                                          child: Icon(Icons.streetview, color: Colors.grey),
-                                        ),
-                                        title: Text(
-                                          "Thema zuordnen",
-                                          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-                                        ),
-                                        subtitle: Text("z.B. Weihnachten", style: TextStyle(color: Colors.grey)),
 
 
-                                        trailing:IconButton(onPressed: (){print("huhu from icon");},icon:
-                                        Icon(Icons.clear, color: Colors.white, size: 24.0))),
-                                   )
-                                  ,
                               Container(
                                 height:60,
                                 child: ListTile(
-
+                                    onTap: (){model.selectImage(context);},
                                     isThreeLine: false,
                                     contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                                     leading: Container(
                                       padding: EdgeInsets.only(top:4),
 
-                                      child: Icon(Icons.camera_alt, color: Colors.grey),
+                                      child: Icon(Icons.camera_alt, color:  model.getGift().isImageGift()?Colors.lightGreen:Colors.grey),
                                     ),
                                     title: Text(
-                                      "Bild auswählen",
+                                        model.getGift().isImageGift()?"Bild gesetzt":"Bild auswählen",
                                       style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
                                     ),
-                                    subtitle: Text("Noch nicht ausgewählt", style: TextStyle(color: Colors.grey)),
+                                    subtitle: Text(model.getGift().isImageGift()?"Ändern?":"Noch nicht ausgewählt", style: TextStyle(color: Colors.grey)),
 
 
-                                    trailing:
-                                    Icon(Icons.clear, color: Colors.white, size: 24.0)),
+                                    trailing: IconButton(onPressed: (){
+                                        model.removeImage();
+                                      },icon:
+                                    Icon(model.getGift().isImageGift()?Icons.clear:Icons.add, color:  !model.getGift().isImageGift() ? Colors.grey:Colors.grey, size: 24.0))),
+                              ),
+                              (model.getGift().isImageGift())?
+
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: (model.selectedImage!=null)?
+                                Image.file(model.selectedImage,height: 200,fit:BoxFit.fitHeight):Image.network(
+                                  model.getGift().getImagePath(SIZE_BIG),
+                                ),
                               )
-                              ,
+
+                                  :verticalSpaceTiny,
                               Container(
                                 child: ListTile(
                                     onTap: (){getContact(model);},
@@ -232,45 +223,16 @@ class CreateGiftView extends StatelessWidget {
                                       "Für wen ist es?",
                                       style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
                                     ),
-                                    subtitle:        model.formContact!=null ? Text("Für ${model.formContact.displayName}"):Text("3 ausgewählt", style: TextStyle(color: Colors.grey)),
+                                    subtitle:        model.formContact!=null ? Text("Für ${model.formContact.displayName}"):Text("niemand ausgewählt", style: TextStyle(color: Colors.grey)),
 
 
-                                    trailing: IconButton(onPressed: (){model.formContact=null;model.notifyListeners();},icon:
-                                    Icon(Icons.add, color:  model.formContact!=null ? Colors.grey:Colors.grey, size: 24.0))),
+                                    trailing: IconButton(onPressed: (){model.formContact=null;model.editList["removeContact"]="true";model.notifyListeners();},icon:
+                                    Icon(model.formContact!=null ?Icons.clear:Icons.add, color:  model.formContact!=null ? Colors.grey:Colors.grey, size: 24.0))),
 
                               ),
 
 
-                        Container(
-                          padding: EdgeInsets.all(7),
-                          child: Wrap(
-                            spacing: 5.0,
-                            runSpacing: 3.0,
-                            children: <Widget>[
 
-                              Chip(
-                                onDeleted: ()=>{},
-                                avatar: CircleAvatar(
-                                  backgroundColor: Colors.green.shade800,
-                                  child: Text('AB'),
-                                ),
-                                label: Text('Kathi'),
-                              ),Chip(
-                                onDeleted: ()=>{},
-                                avatar: CircleAvatar(
-                                  backgroundColor: Colors.grey.shade800,
-                                  child: Text('AB'),
-                                ),
-                                label: Text('Alex'),
-                              ),Chip(
-                                onDeleted: ()=>{},
-                                avatar: CircleAvatar(
-                                  backgroundColor: Colors.grey.shade800,
-                                  child: Text('AB'),
-                                ),
-                                label: Text('Daniel'),
-                              )
-                              ])),
 
 
 
@@ -306,19 +268,5 @@ class CreateGiftView extends StatelessWidget {
                           left: 0,
                           bottom: 0),
                     ])))));
-  }
-
-  Future<void> getDate(BuildContext context, CreateGiftViewModel model) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2020),
-        lastDate: DateTime(2030));
-    if (picked != null) {
-      model.formDate = DateFormat("yyyy-MM-dd").format(picked);
-      String localeDate = DateFormat("dd.MM.yyyy").format(picked);
-      dateController.text = "bis zum $localeDate";
-      model.notifyListeners();
-    }
   }
 }

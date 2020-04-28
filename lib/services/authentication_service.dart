@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:luvutest/constants/route_names.dart';
 import 'package:luvutest/locator.dart';
 import 'package:luvutest/models/user.dart';
-import 'package:luvutest/services/API/ApiService.dart';
+import 'package:luvutest/services/ApiService.dart';
 import 'package:luvutest/services/navigation_service.dart';
 
 

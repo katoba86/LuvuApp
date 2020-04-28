@@ -44,12 +44,14 @@ class LuvuTheme{
         buttonColor: Colors.deepPurple,     //  <-- dark color
         textTheme: ButtonTextTheme.primary, //  <-- this auto selects the right color
       ),
-
+    appBarTheme: AppBarTheme(
+      color: Colors.white
+    ),
     //primarySwatch:getColorList(75, 190, 204),
-    primarySwatch:MaterialColor(0xFF4BBECC, getColorList(75, 190, 204)),
+     primarySwatch:MaterialColor(0xFF4BBECC, getColorList(75, 190, 204)),
 
+     // fontFamily: 'CircularStd',
 
-      fontFamily: 'Comic'
   );
 
   static ThemeData getThemeFromKey(LuvuThemeKeys key){

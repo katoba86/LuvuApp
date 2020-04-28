@@ -9,7 +9,7 @@ part of 'UserService.dart';
 class _UserService implements UserService {
   _UserService(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://luvu.ngrok.io';
+    this.baseUrl ??= 'https://luvu.ngrok.io/api';
   }
 
   final Dio _dio;
@@ -21,8 +21,7 @@ class _UserService implements UserService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/api/user',
+    final Response<Map<String, dynamic>> _result = await _dio.request('/user',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

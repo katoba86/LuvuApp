@@ -11,7 +11,7 @@ abstract class UserService {
   factory UserService(Dio dio, {String baseUrl}) = _UserService;
 
 
-  @GET("/api/user")
+  @GET("/user")
   Future<User> getUser();
 
 

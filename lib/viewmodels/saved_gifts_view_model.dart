@@ -1,13 +1,16 @@
 
-import 'package:logger/logger.dart';
+
 import 'package:luvutest/constants/route_names.dart';
 import 'package:luvutest/locator.dart';
+import 'package:luvutest/models/Lists.dart';
+
 import 'package:luvutest/models/gift.dart';
-import 'package:luvutest/services/API/ApiService.dart';
+import 'package:luvutest/services/ApiService.dart';
 import 'package:luvutest/services/authentication_service.dart';
 import 'package:luvutest/services/dialog_service.dart';
 
 import 'package:luvutest/services/navigation_service.dart';
+import 'package:luvutest/ui/views/detail_view.dart';
 import 'package:luvutest/viewmodels/base_model.dart';
 
 class SavedGiftsViewModel extends BaseModel {
@@ -16,15 +19,28 @@ class SavedGiftsViewModel extends BaseModel {
 
   final DialogService _dialogService = locator<DialogService>();
   final AuthenticationService _authenticationService = locator<AuthenticationService>();
-
-  List<Gift> _gifts;
+  List<Gift> _gifts = new List<Gift>();
   List<Gift> get gifts => _gifts;
+
+  Lists customList;
+
+  void setCustomList(Lists list){
+    this.customList = list;
+  }
 
   void getInitialGifts() async {
     setBusy(true);
 
-    this._gifts = await _apiService.getGifts(_authenticationService.currentUser);
+
+    if(this.customList==null) {
+      this._gifts =
+      await _apiService.getGifts(_authenticationService.currentUser);
+    }else{
+      this._gifts = await _apiService.getListGifts(this.customList,_authenticationService.currentUser);
+    }
+
     print("Objects loaded");
+    print(this._gifts.length);
     setBusy(false);
   }
 
@@ -71,6 +87,13 @@ class SavedGiftsViewModel extends BaseModel {
     if(result=="reload"){
       this.reloadGifts();
     }
+  }
+
+
+  void viewGift(int index) async {
+
+    await _navigationService.navigateTo(DetailViewRoute,
+        arguments: _gifts[index]);
   }
 
   void logout() {

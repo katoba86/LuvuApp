@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:luvutest/constants/config.dart';
-import 'package:luvutest/locator.dart';
+
 import 'package:luvutest/models/user.dart';
-import 'package:luvutest/services/dialog_service.dart';
+
 
 class DioProvider {
   Dio dioInstance;
 
 
-  DialogService _dialog = locator<DialogService>();
+
   bool hasAuth = false;
 
   String _token;
@@ -51,7 +51,7 @@ class DioProvider {
       },
       onError: (DioError err){
         print("ERROR[${err.message}]");
-        _dialog.showDialog(title: "HTTP ERROR",description: err.message);
+
         return err;
       }
     ));

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-const String APISERVER = "https://luvu.ngrok.io";
+const String APISERVER = "https://luvu.ngrok.io/api";
+const String IMAGE_SERVER = "https://luvu.ngrok.io/storage/images";
+
 const String TESTTOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFmODhiODE0MjljYzQ1MWEzMzVjMmY1Y2RiM2RmYjM0ZWIzYmJjN2YiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiS2FpLVRvYmlhcyBCYXJ0aG9sb21lIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdoMlh6NHhod0V3Ny14dzhMQUZLVTluZjBYbGVSYVQwblBYNDFhWmx3PXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3Rlc3Rwcm9qZWt0LWM2ZTI3IiwiYXVkIjoidGVzdHByb2pla3QtYzZlMjciLCJhdXRoX3RpbWUiOjE1ODUwNDAwNzcsInVzZXJfaWQiOiJLQ0NZTm9WVjBPU2pRYnMzZ0kyN2tyS3JFY2kyIiwic3ViIjoiS0NDWU5vVlYwT1NqUWJzM2dJMjdrcktyRWNpMiIsImlhdCI6MTU4NTA0MDA3NywiZXhwIjoxNTg1MDQzNjc3LCJlbWFpbCI6ImluZm9Aa2F0b2JhLmRlIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5Mzc4NjUzNjk0OTc2NTM3ODIiXSwiZW1haWwiOlsiaW5mb0BrYXRvYmEuZGUiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.GFdqs8lKeaMHoBz5rJRtFknyPmL8pkJfYoDQjjIylQQgOH7QlH_pNo6MRQvgADDPTDsaCbluAmUPwMN4_Iaak48gWhYuwPyoW-N5wmdF3Sk9mnxGvihA_JQx7amtn-X-Iza5b5AztuM15wECXu7BBjrBWRITLP7-TgO5JuJpKKgqLioexJqbC3iTOZ14JoWB76aLo8EYbbXe";
 
+const int SIZE_SMALL = 50;
+const int SIZE_MEDIUM = 100;
+const int SIZE_BIG = 500;
 
 const DEFAULT_ICON = Icons.add;
+const double HEADER_RADIUS = 28;
 
-const Map<String, IconData> ALLOWED_ICONS = {
-  'threesixty': Icons.threesixty,
-  'threed_rotation': Icons.threed_rotation,
-  'four_k': Icons.four_k,
-  'ac_unit': Icons.ac_unit,
-  'add':Icons.add,
-};

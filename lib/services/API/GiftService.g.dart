@@ -9,7 +9,7 @@ part of 'GiftService.dart';
 class _GiftService implements GiftService {
   _GiftService(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://luvu.ngrok.io';
+    this.baseUrl ??= 'https://luvu.ngrok.io/api';
   }
 
   final Dio _dio;
@@ -21,8 +21,7 @@ class _GiftService implements GiftService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request(
-        '/api/gifts/list',
+    final Response<List<dynamic>> _result = await _dio.request('/gift/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -37,15 +36,24 @@ class _GiftService implements GiftService {
   }
 
   @override
-  updateGift(id, gift) async {
+  updateGift(id, gift, {file}) async {
     ArgumentError.checkNotNull(id, 'id');
     ArgumentError.checkNotNull(gift, 'gift');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(gift?.toJson() ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    if (gift != null) {
+      _data.fields.add(MapEntry('gift', gift));
+    }
+    if (file != null) {
+      _data.files.add(MapEntry(
+          'file',
+          MultipartFile.fromFileSync(file.path,
+              filename: file.path.split(Platform.pathSeparator).last)));
+    }
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/api/gifts/update/$id',
+        '/gift/update/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -58,14 +66,21 @@ class _GiftService implements GiftService {
   }
 
   @override
-  addGift(gift) async {
+  addGift(gift, {file}) async {
     ArgumentError.checkNotNull(gift, 'gift');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(gift?.toJson() ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    _data.fields.add(MapEntry('gift', jsonEncode(gift ?? <String, dynamic>{})));
+    if (file != null) {
+      _data.files.add(MapEntry(
+          'file',
+          MultipartFile.fromFileSync(file.path,
+              filename: file.path.split(Platform.pathSeparator).last)));
+    }
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/api/gifts/add',
+        '/gift/add',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -83,7 +98,7 @@ class _GiftService implements GiftService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    await _dio.request<void>('/api/gifts/remove/$id',
+    await _dio.request<void>('/gift/remove/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

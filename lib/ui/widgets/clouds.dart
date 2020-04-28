@@ -58,3 +58,16 @@ class _CloudsState extends State<Clouds> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+class PositionedClouds extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return  Positioned(
+      left:0,
+      top:20,
+      width: MediaQuery.of(context).size.width,
+      height: 130,
+      child: Clouds(),
+    );
+  }
+}

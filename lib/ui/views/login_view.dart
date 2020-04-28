@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
+
 import 'package:luvutest/painter/DefaultPaint.dart';
 import 'package:luvutest/ui/shared/ui_helpers.dart';
-import 'package:luvutest/ui/widgets/StringIcon.dart';
+
 import 'package:luvutest/ui/widgets/clouds.dart';
 import 'package:luvutest/ui/widgets/login_button.dart';
 import 'package:luvutest/viewmodels/login_view_model.dart';
@@ -85,21 +85,7 @@ verticalSpaceLarge,
                             ),
                             onPressed: ()=>{},
                           ),
-                          verticalSpaceSmall,
-                          LoginButtonBuilder(
-                            width:MediaQuery.of(context).size.width*0.8,
-                            height:48,
-                            text: 'Weiter geht\'s ohne Anmeldung',
-                            image: Image(
-                              image: AssetImage(
-                                'assets/icons/anonym.png',
-                              ),
-                              height: 36.0,
-                            ),
-                            onPressed: (){
-                              model.signUpAnonymous();
-                            },
-                          ),
+
 
 
                         ],

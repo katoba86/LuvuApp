@@ -2,5 +2,11 @@ const String LoginViewRoute = "LoginView";
 const String SignUpViewRoute = "SignUp";
 const String HomeViewRoute = "HomeView";
 const String CreateGiftViewRoute = "CreateGiftView";
+const String AddGiftViewRoute = "AddGiftView";
 const String SavedGiftsViewRoute = "SavedGiftsView";
+const String DetailViewRoute = "DetailViewRoute";
+const String TestViewRoute = "TestViewRoute";
+const String ListsViewRoute = "ListsViewRoute";
+const String SettingsViewRoute = "SettingsViewRoute";
+const String NewListViewRoute = "NewListViewRoute";
 // Generate the views here
