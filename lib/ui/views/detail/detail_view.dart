@@ -61,12 +61,7 @@ class _DetailViewState extends State<DetailView> {
                     flexibleSpace: FlexibleSpaceBar(
                       collapseMode: CollapseMode.pin,
                       centerTitle: true,
-                      title: _showTitle
-                          ? Text(
-                        "Luvu",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )
-                          : SizedBox(height: 1),
+
                       background: _buildMain(context,model),
                     ),
                   ),
@@ -123,7 +118,7 @@ shrinkWrap: true,
 
   Widget _buildMain(context,DetailViewModel model) {
     final screenSize = MediaQuery.of(context).size;
-
+    final Gift gift = model.getGift();
     final luvuSize = screenSize.width * 0.46;
 
     return ClipPath(
@@ -163,7 +158,7 @@ shrinkWrap: true,
                       padding:EdgeInsets.only(left: 18),
                        child:   Text(
                          //model.getGift().name
-                          "Fitbit Charge 4"
+                         model.getGift().name
                          ,
                          style: TextStyle(
                            fontSize: 30,
@@ -187,7 +182,7 @@ shrinkWrap: true,
                            children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(right:10.0),
-                                child: Text('24.03.2020',style: TextStyle(color: Colors.grey),),
+                                child: Text(gift.createdAt,style: TextStyle(color: Colors.grey),),
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,

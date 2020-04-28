@@ -83,7 +83,7 @@ verticalSpaceLarge,
                               ),
                               height: 36.0,
                             ),
-                            onPressed: ()=>{},
+                            onPressed: ()=> model.signUpWithFacebook(),
                           ),
 
 

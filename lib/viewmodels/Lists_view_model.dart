@@ -1,16 +1,10 @@
-
-
 import 'package:luvutest/constants/route_names.dart';
 import 'package:luvutest/locator.dart';
 import 'package:luvutest/models/Lists.dart';
-
-import 'package:luvutest/models/gift.dart';
 import 'package:luvutest/services/ApiService.dart';
 import 'package:luvutest/services/authentication_service.dart';
 import 'package:luvutest/services/dialog_service.dart';
-
 import 'package:luvutest/services/navigation_service.dart';
-import 'package:luvutest/ui/views/detail_view.dart';
 import 'package:luvutest/viewmodels/base_model.dart';
 
 class ListsViewModel extends BaseModel {

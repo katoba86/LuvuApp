@@ -4,7 +4,6 @@ import 'package:luvutest/services/authentication_service.dart';
 import 'package:luvutest/services/dialog_service.dart';
 import 'package:luvutest/services/navigation_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:luvutest/viewmodels/signup_view_model.dart';
 
 import 'base_model.dart';
 
@@ -15,31 +14,34 @@ class LoginViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
 
-  void navigateToSignUp(){
-    _navigationService.navigateTo(SignUpViewRoute);
-  }
-
-
-  Future signUpWithGoogle() async {
-      SignUpViewModel suvm = new SignUpViewModel();
-      return suvm.signUpWithGoogle();
-  }
-  Future signUpAnonymous() async {
-      SignUpViewModel suvm = new SignUpViewModel();
-      return suvm.signUpAnonymous();
-  }
-
-
-  Future login({
-    @required String email,
-    @required String password,
-  }) async {
+  Future signUpWithFacebook() async{
     setBusy(true);
 
-    var result = await _authenticationService.loginWithEmail(
-      email: email,
-      password: password,
-    );
+    var result = await _authenticationService.loginWithFacebook();
+
+
+    setBusy(false);
+    if (result is bool) {
+      if (result) {
+        _navigationService.navigateTo(HomeViewRoute);
+      } else {
+        await _dialogService.showDialog(
+          title: 'Sign Up Failure',
+          description: 'General sign up failure. Please try again later',
+        );
+      }
+    } else {
+      await _dialogService.showDialog(
+        title: 'Sign Up Failure',
+        description: "Klappt nicht...",
+      );
+    }
+  }
+
+  Future signUpWithGoogle() async {
+    setBusy(true);
+
+    var result = await _authenticationService.loginWithGoogle();
 
     setBusy(false);
 
@@ -48,18 +50,15 @@ class LoginViewModel extends BaseModel {
         _navigationService.navigateTo(HomeViewRoute);
       } else {
         await _dialogService.showDialog(
-          title: 'Login Failure',
-          description: 'General login failure. Please try again later',
+          title: 'Sign Up Failure',
+          description: 'General sign up failure. Please try again later',
         );
       }
     } else {
       await _dialogService.showDialog(
-        title: 'Login Failure',
+        title: 'Sign Up Failure',
         description: result,
       );
     }
   }
-
-
-
 }

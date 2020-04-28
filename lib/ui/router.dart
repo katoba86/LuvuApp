@@ -1,18 +1,15 @@
 import 'package:luvutest/models/Lists.dart';
 import 'package:luvutest/models/gift.dart';
 import 'package:luvutest/ui/views/addGift/add_gift_view.dart';
-import 'package:luvutest/ui/views/create_gift_view.dart';
 import 'package:luvutest/ui/views/detail/detail_view.dart';
-
 import 'package:luvutest/ui/views/home/home_view.dart';
-
 import 'package:flutter/material.dart';
 import 'package:luvutest/constants/route_names.dart';
 import 'package:luvutest/ui/views/lists/lists_view.dart';
 import 'package:luvutest/ui/views/login_view.dart';
 import 'package:luvutest/ui/views/mygifts/myGifts_view.dart';
 import 'package:luvutest/ui/views/settings/settings_view.dart';
-import 'package:luvutest/ui/views/signup_view.dart';
+
 
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -26,11 +23,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: LoginView(),
-      );
-    case SignUpViewRoute:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: SignUpView(),
       );
     case CreateGiftViewRoute:
       var giftToEdit = settings.arguments as Gift;

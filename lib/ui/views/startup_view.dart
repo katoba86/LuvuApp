@@ -17,13 +17,17 @@ class StartupView extends StatelessWidget {
             body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+
                 children: <Widget>[
                   SizedBox(
                     width: 300,
                     height: 100,
-                    child: Image.asset("assets/02.png"),
+                    child: Image.asset("assets/images/gift.png"),
                   ),
-                  CircularProgressIndicator(strokeWidth: 3,valueColor: AlwaysStoppedAnimation(Color(0xff990022)),)
+                  Padding(
+                    padding: const EdgeInsets.only(top:40.0),
+                    child: CircularProgressIndicator(strokeWidth: 8,valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),),
+                  )
                 ],
               ),
             )));

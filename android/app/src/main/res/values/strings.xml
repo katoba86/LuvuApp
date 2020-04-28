@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">de.katowi.luvutest</string>
+    <string name="facebook_app_id">284541565858291</string>
+    <string name="fb_login_protocol_scheme">fb284541565858291</string>
+</resources>

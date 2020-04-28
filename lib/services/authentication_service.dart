@@ -1,8 +1,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+//import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:luvutest/constants/route_names.dart';
 import 'package:luvutest/locator.dart';
 import 'package:luvutest/models/user.dart';
@@ -15,6 +16,7 @@ import 'package:luvutest/services/navigation_service.dart';
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  //final FacebookSignIn _facebookSignIn = FacebookSignIn();
 
   final ApiService _apiService = new ApiService();
   final NavigationService _navigationService = locator<NavigationService>();
@@ -29,20 +31,52 @@ class AuthenticationService {
   }
 
 
+
+
+
   Future<FirebaseUser> getUser() async{
     return await _firebaseAuth.currentUser();
   }
 
+  Future<FacebookLoginResult> _handleFBSignIn() async {
+    FacebookLogin facebookLogin = FacebookLogin();
+    FacebookLoginResult facebookLoginResult =
+    await facebookLogin.logIn(['email']);
+    switch (facebookLoginResult.status) {
+      case FacebookLoginStatus.cancelledByUser:
+        print("Cancelled");
+        break;
+      case FacebookLoginStatus.error:
+        print("error");
+        break;
+      case FacebookLoginStatus.loggedIn:
+        print("Logged In");
+        break;
+    }
+    return facebookLoginResult;
+  }
 
-  Future loginAnonymous() async{
-    print("Start login anonymous");
-    final AuthResult result = await _firebaseAuth.signInAnonymously();
+  Future loginWithFacebook() async{
 
-    return result;
+    FacebookLoginResult facebookLoginResult = await _handleFBSignIn();
+    final accessToken = facebookLoginResult.accessToken.token;
+    if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
+      final facebookAuthCred =
+      FacebookAuthProvider.getCredential(accessToken: accessToken);
+      final AuthResult authResult = await _firebaseAuth.signInWithCredential(
+          facebookAuthCred);
+      final FirebaseUser user = authResult.user;
+
+      await _populateCurrentUser(user);
+      await _apiService.createUser(currentUser);
+
+      return user != null;
+    }
+    return null;
   }
 
   Future loginWithGoogle() async{
-    print("Start Login");
+
     final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
@@ -58,42 +92,6 @@ class AuthenticationService {
   }
 
 
-  Future loginWithEmail({
-    @required String email,
-    @required String password,
-
-  }) async {
-    try {
-      var user = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await _populateCurrentUser(user.user);
-
-      return user.user != null;
-    } catch (e) {
-      return e.message;
-    }
-  }
-
-  Future signUpWithEmail({
-    @required String email,
-    @required String password,
-    @required String name
-  }) async {
-    try {
-      var authResult = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      _populateCurrentUser(authResult.user);
-      await _apiService.createUser(currentUser);
-      return authResult.user != null;
-    } catch (e) {
-      return e.message;
-    }
-  }
 
 
   _populateCurrentUser(FirebaseUser user) async{
@@ -102,11 +100,6 @@ class AuthenticationService {
         _currentUser = new User(name: user.displayName,id: user.uid,token: token.token);
     }
   }
-  /*Future _populateCurrentUser(FirebaseUser user) async{
-    if(user != null){
-        _currentUser = await _firestoreService.getUser(user.uid);
-    }
-  } */
 
   void logOut() async{
 

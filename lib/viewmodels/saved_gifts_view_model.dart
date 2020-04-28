@@ -10,7 +10,6 @@ import 'package:luvutest/services/authentication_service.dart';
 import 'package:luvutest/services/dialog_service.dart';
 
 import 'package:luvutest/services/navigation_service.dart';
-import 'package:luvutest/ui/views/detail_view.dart';
 import 'package:luvutest/viewmodels/base_model.dart';
 
 class SavedGiftsViewModel extends BaseModel {
