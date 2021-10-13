@@ -5,7 +5,7 @@ class NavigationService {
 
   GlobalKey<NavigatorState> get navigationKey => _navigationKey;
 
-  bool pop({result}) {
+  pop({result}) {
     return _navigationKey.currentState.pop(result);
   }
 

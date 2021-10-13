@@ -126,12 +126,10 @@ class _AddGiftViewState extends State<AddGiftView> {
                         child: FormBuilder(
 // context,
                             key: _fbKey,
-                            autovalidate: true,
 
-                            readOnly: false,
                             child: Column(children: <Widget>[
                               FormBuilderTextField(
-                                attribute: "age",
+                                name:'age',
                                 decoration: InputDecoration(
                                   labelText: "Name der Geschenkidee",
                                 ),
@@ -139,12 +137,10 @@ class _AddGiftViewState extends State<AddGiftView> {
                                     model.editList["name"]=val;
                                 },
                                 valueTransformer: (text) => num.tryParse(text),
-                                validators: [
-                                  FormBuilderValidators.required(
-                                      errorText: "Name muss ausgefüllt sein"),
-                                  FormBuilderValidators.min(3,
-                                      errorText: "Mindestens 3 Zeichen"),
-                                ],
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(context),
+                                  FormBuilderValidators.min(context,3),
+                                ]),
                                 keyboardType: TextInputType.text,
                               ),
                               verticalSpaceMedium,
@@ -164,7 +160,7 @@ class _AddGiftViewState extends State<AddGiftView> {
                                   labelText: "Für wen ist das Geschenk?",
                                 ),
 //initialValue: contacts[0],
-                                attribute: 'contact_person',
+                                name: 'contact_person',
                                 onChanged: _onChanged,
                                 itemBuilder: (context, contact) {
                                   return ListTile(

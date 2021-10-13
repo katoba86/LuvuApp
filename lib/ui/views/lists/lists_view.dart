@@ -7,9 +7,7 @@ import 'package:luvutest/constants/route_names.dart';
 import 'package:luvutest/locator.dart';
 import 'package:luvutest/services/navigation_service.dart';
 import 'package:luvutest/ui/shared/LuvuDrawer.dart';
-import 'package:luvutest/ui/widgets/MyListsItem.dart';
-
-import 'package:luvutest/ui/widgets/gift_item.dart';
+import 'package:luvutest/ui/widgets/ListsItem.dart';
 import 'package:luvutest/viewmodels/Lists_view_model.dart';
 import 'package:luvutest/viewmodels/saved_gifts_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -154,7 +152,7 @@ class _ListsViewState extends State<ListsView> {
                               child: SlideAnimation(
                                 horizontalOffset: 50.0,
                                 child: FadeInAnimation(
-                                  child: GestureDetector(onTap:(){model.viewList(index);},child: MyListsItem(list: model.lists[index] ,onDeleteItem: (){},)),
+                                  child: GestureDetector(onTap:(){model.viewList(index);},child: ListsItem(list: model.lists[index] ,onDeleteItem: (){},)),
                                 ),
                               ),
                             );
